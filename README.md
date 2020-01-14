@@ -1,13 +1,13 @@
-# One to Any: Distributed Conflict Resolution with Deep Multi-Agent Reinforcement Learning and Long Short-Term Memory 
+# Autonomous Air Traffic Controller: A Deep Multi-Agent Reinforcement Learning Approach 
 ## Marc Brittain
 ### mwb AT iastate DOT edu
 
-Fork of the BlueSky Air Traffic Simulator developed by TU Delft. The original ReadMe can be seen below.
+Fork of the BlueSky Air Traffic Simulator developed by TU Delft. The original ReadMe can be seen below. Note that this fork has been minimally changed from the LSTM branch for clarity.
 
 
 To run each of the individual case study as described in each paper please run the following steps:
 
-1. Download lstm branch of this repository
+1. Download N_Closest branch of this repository
 2. Download required modules:
 >>  * tensorflow 1.x
 >>  * keras
@@ -29,7 +29,7 @@ If any of this work helped in your project or research I would love to hear abou
 Please cite the paper below in your work :) 
 
 
-[paper](https://www.researchgate.net/publication/338084245_One_to_Any_Distributed_Conflict_Resolution_with_Deep_Multi-Agent_Reinforcement_Learning_and_Long_Short-Term_Memory)
+[paper](https://arxiv.org/abs/1905.01303)
 
 
 
