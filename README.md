@@ -7,6 +7,7 @@ Fork of the BlueSky Air Traffic Simulator developed by TU Delft.The original Rea
 There are currently 2 branches: **lstm** and **N_Closest** to correspond to the following papers,
 
 (1) [One to Any: Distributed Conflict Resolution with Deep Multi-Agent Reinforcement Learning and Long Short-Term Memory](https://www.researchgate.net/publication/338084245_One_to_Any_Distributed_Conflict_Resolution_with_Deep_Multi-Agent_Reinforcement_Learning_and_Long_Short-Term_Memory)
+
 (2) [Autonomous Air Traffic Controller: A Deep Multi-Agent Reinforcement Learning Approach](https://arxiv.org/abs/1905.01303)
 
 
