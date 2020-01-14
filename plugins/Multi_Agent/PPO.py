@@ -107,7 +107,7 @@ def proximal_policy_optimization_loss(advantage, old_prediction):
 
 # initalize the PPO agent
 class PPO_Agent:
-    def __init__(self,state_size,action_size,num_routes,numEpisodes,positions):
+    def __init__(self,state_size,action_size,num_routes,numEpisodes,positions,num_intruders):
 
         self.state_size = state_size
         self.action_size = action_size
@@ -115,6 +115,7 @@ class PPO_Agent:
         self.gamma = 0.99    # discount rate
         self.numEpisodes = numEpisodes
         self.max_time = 500
+        self.num_intruders = num_intruders
 
         self.episode_count = 0
         self.speeds = np.array([156,0,346])
@@ -129,7 +130,7 @@ class PPO_Agent:
         self.value_size = 1
         self.getRouteDistances()
         self.model_check = []
-        self.model = self._build_A2C()
+        self.model = self._build_PPO()
 
         self.count = 0
 
@@ -239,19 +240,19 @@ class PPO_Agent:
             return context_arr.reshape(1,1,7)
 
 
-    def _build_A2C(self):
+    def _build_PPO(self):
 
         I = tf.keras.layers.Input(shape=(self.state_size,),name='states')
 
-        context = tf.keras.layers.Input(shape=(None,7),name='context')
+        context = tf.keras.layers.Input(shape=(self.num_intruders,7),name='context')
         empty = tf.keras.layers.Input(shape=(HIDDEN_SIZE,),name='empty')
 
         advantage = tf.keras.layers.Input(shape=(1,),name='A')
         old_prediction = tf.keras.layers.Input(shape=(self.action_size,),name='old_pred')
 
-
+        flatten_context = tf.keras.layers.Flatten()(context)
         # encoding other_state into 32 values
-        H1_int = tf.keras.layers.LSTM(HIDDEN_SIZE,activation='tanh')(context,initial_state=[empty,empty])
+        H1_int = tf.keras.layers.Dense(HIDDEN_SIZE,activation='relu')(flatten_context)
         # now combine them
         combined = tf.keras.layers.concatenate([I,H1_int], axis=1)
 
@@ -313,6 +314,9 @@ class PPO_Agent:
         state,context = state
         state = state.reshape((1,5))
         context = context.reshape((1,-1,7))
+
+        if context.shape[1] > self.num_intruders:
+            context = context[:,-num_intruders:,:]
 
         self.max_agents = max(self.max_agents,context.shape[1])
 
@@ -436,6 +440,12 @@ class PPO_Agent:
 
 
         context = context.reshape((state.shape[0],-1,7))
+
+        if context.shape[1] > self.num_intruders:
+            context = context[:,-self.num_intruders,:]
+        if context.shape[1] < self.num_intruders:
+            context = tf.keras.preprocessing.sequence.pad_sequences(context,self.num_intruders,dtype='float32')
+
         policy,value = self.predictor.predict({'states':state,'context':context,'empty':np.zeros((state.shape[0],HIDDEN_SIZE))},batch_size=state.shape[0])
 
 
