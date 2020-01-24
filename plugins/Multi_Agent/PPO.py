@@ -316,7 +316,7 @@ class PPO_Agent:
         context = context.reshape((1,-1,7))
 
         if context.shape[1] > self.num_intruders:
-            context = context[:,-num_intruders:,:]
+            context = context[:,-self.num_intruders:,:]
 
         self.max_agents = max(self.max_agents,context.shape[1])
 
@@ -442,7 +442,7 @@ class PPO_Agent:
         context = context.reshape((state.shape[0],-1,7))
 
         if context.shape[1] > self.num_intruders:
-            context = context[:,-self.num_intruders,:]
+            context = context[:,-self.num_intruders:,:]
         if context.shape[1] < self.num_intruders:
             context = tf.keras.preprocessing.sequence.pad_sequences(context,self.num_intruders,dtype='float32')
 
