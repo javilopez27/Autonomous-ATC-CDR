@@ -271,7 +271,7 @@ class PPO_Agent:
         value_out = tf.keras.layers.Activation('linear',name='value_out')(value)
 
         # Using Adam optimizer, RMSProp's successor.
-        opt = tf.keras.optimizers.Adam(lr=self.lr)
+        opt = tf.keras.optimizers.Adam(learning_rate=self.lr)
 
         model = tf.keras.models.Model(inputs=[I,context,empty,advantage,old_prediction], outputs=[policy_out,value_out])
 

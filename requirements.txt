@@ -6,9 +6,17 @@ numpy
 
 scipy
 
+geopy
+
+shapely
+
+numba
+
 matplotlib
 
 pandas
+
+pyclipper
 
 pyopengl
 

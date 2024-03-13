@@ -97,7 +97,7 @@ class Area(TrafficArrays):
         self.logger = datalog.crelog('FLSTLOG', None, header)
 
         with RegisterElementParameters(self):
-            self.inside      = np.array([],dtype = np.bool) # In test area or not
+            self.inside      = np.array([],dtype = bool) # In test area or not
             self.oldalt      = np.array([])
             self.distance2D  = np.array([])
             self.distance3D  = np.array([])

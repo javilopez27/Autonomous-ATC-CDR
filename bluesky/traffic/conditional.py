@@ -16,7 +16,7 @@ class Condition():
         self.ncond = 0  # Number of conditions
 
         self.id       = np.chararray((0,0))         # Id of aicrcraft of condition
-        self.idx      = np.array([],dtype=np.int)# Index of aicrcraft of condition
+        self.idx      = np.array([],dtype=int)# Index of aicrcraft of condition
         self.condtype = []                       # Condition type (0=alt,1=spd)
         self.target   = np.array([])             # Target value
         self.lastdif  = np.array([])             # Difference during last update

@@ -118,9 +118,9 @@ class Traffic(TrafficArrays):
             self.selvs  = np.array([])  # selected vertical speed [m/s]
 
             # Whether to perform LNAV and VNAV
-            self.swlnav    = np.array([], dtype=np.bool)
-            self.swvnav    = np.array([], dtype=np.bool)
-            self.swvnavspd = np.array([], dtype=np.bool)
+            self.swlnav    = np.array([], dtype=bool)
+            self.swvnav    = np.array([], dtype=bool)
+            self.swvnavspd = np.array([], dtype=bool)
 
             # Flight Models
             self.asas   = ASAS()
@@ -139,11 +139,11 @@ class Traffic(TrafficArrays):
             self.aphi     = np.array([])  # [rad] bank angle setting of autopilot
             self.ax       = np.array([])  # [m/s2] absolute value of longitudinal accelleration
             self.bank     = np.array([])  # nominal bank angle, [radian]
-            self.swhdgsel = np.array([], dtype=np.bool)  # determines whether aircraft is turning
+            self.swhdgsel = np.array([], dtype=bool)  # determines whether aircraft is turning
 
             # limit settings
             self.limspd      = np.array([])  # limit speed
-            self.limspd_flag = np.array([], dtype=np.bool)  # flag for limit spd - we have to test for max and min
+            self.limspd_flag = np.array([], dtype=bool)  # flag for limit spd - we have to test for max and min
             self.limalt      = np.array([])  # limit altitude
             self.limalt_flag = np.array([])  # A need to limit altitude has been detected
             self.limvs       = np.array([])  # limit vertical speed due to thrust limitation
