@@ -66,6 +66,7 @@ def init_plugin():
     observation = {}
     collisions = 0
     success = 0
+    num_intruders = 4
 
     num_ac = 0
     max_ac = 10
@@ -78,7 +79,7 @@ def init_plugin():
     choices = [20,25,30] # 4 minutes, 5 minutes, 6 minutes
     route_queue = random.choices(choices,k=positions.shape[0])
 
-    agent = PPO_Agent(n_states,3,positions.shape[0],200000,positions)
+    agent = PPO_Agent(n_states,3,positions.shape[0],100000,positions,num_intruders)
     counter = 0
     start = time.time()
 
@@ -423,7 +424,9 @@ def getClosestAC(state,traf,route_keeper,new_action,n_states,store_terminal,agen
 
         route_count = 0
 
-        for j in reversed(range(len(argsort[i]))):
+        intruder_count = 0
+
+        for j in range(len(argsort[i])):
 
 
             index = int(argsort[i][j])
@@ -470,6 +473,11 @@ def getClosestAC(state,traf,route_keeper,new_action,n_states,store_terminal,agen
 
                 closest_states = np.append(closest_states,adding,axis=1)
 
+            intruder_count += 1
+
+            if intruder_count == agent.num_intruders:
+                break
+
 
 
         if len(closest_states) == 0:
@@ -480,12 +488,12 @@ def getClosestAC(state,traf,route_keeper,new_action,n_states,store_terminal,agen
             total_closest_states = closest_states
         else:
 
-            total_closest_states = np.append(tf.keras.preprocessing.sequence.pad_sequences(total_closest_states,max_agents,dtype='float32'),tf.keras.preprocessing.sequence.pad_sequences(closest_states,max_agents,dtype='float32'),axis=0)
+            total_closest_states = np.append(tf.keras.preprocessing.sequence.pad_sequences(total_closest_states,agent.num_intruders,dtype='float32'),tf.keras.preprocessing.sequence.pad_sequences(closest_states,agent.num_intruders,dtype='float32'),axis=0)
 
 
 
     if len(total_closest_states) == 0:
-        total_closest_states = np.array([0,0,0,0,0,0,0]).reshape(1,1,7)
+        total_closest_states = np.array([0,0,0,0,0,0,0]).reshape(1,agent.num_intruders,7)
 
 
     return norm_state,total_closest_states
