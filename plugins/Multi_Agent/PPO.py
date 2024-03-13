@@ -432,7 +432,8 @@ class PPO_Agent:
 
         else:
 
-            self.model.save_weights('model_{}.h5'.format(case_study))
+            self.model.save_weights('model_{}.weights.h5'.format(case_study))
+
 
 
     # action implementation for the agent

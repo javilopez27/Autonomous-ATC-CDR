@@ -79,7 +79,7 @@ def detect(ownship, intruder, RPZ, HPZ, tlookahead):
     toutconf = np.minimum(toutver, touthor)
 
     swconfl = np.array(swhorconf * (tinconf <= toutconf) * (toutconf > 0.0) * \
-        (tinconf < tlookahead) * (1.0 - I), dtype=np.bool)
+        (tinconf < tlookahead) * (1.0 - I), dtype=bool)
 
     # --------------------------------------------------------------------------
     # Update conflict lists
