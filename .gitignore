@@ -9,7 +9,7 @@ data/performance/BADA/*
 docs/_build/
 
 # virtual environment
-venv
+env/
 
 # PyBuilder
 target/
